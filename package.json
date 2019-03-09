@@ -1,0 +1,56 @@
+{
+  "name": "gamespot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "postinstall": "if test \"$NODE_ENV\" = \"production\"; then npm run build; fi",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "serve-static": "^1.13.2",
+    "vue": "^2.6.6",
+    "vue-carrousel": "^1.0.5",
+    "vue-material": "^1.0.0-beta-10.2",
+    "vue-resource": "^1.5.1",
+    "vue-router": "^3.0.2",
+    "vue-scroll-reveal": "^1.0.11",
+    "vuex": "^3.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

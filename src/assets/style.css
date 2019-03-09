@@ -1,0 +1,356 @@
+body {
+    padding:0;
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 1100px;
+    margin: 0 auto;
+
+}
+
+.clear:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.button_default {
+    background: #F44336;
+    color: white;
+    font-size: 20px;
+    padding: 7px 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.5s ease;
+}
+.button_default:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.small_link {
+    font-size: 12px;
+    background: #F44336;
+}
+.button_default:hover {
+    background: #2b2b2b;;
+    color: #ffffff;
+}
+
+/*================================
+            HEADER FOOTER
+==================================*/
+header {
+    background: #00000099;
+    color:white;
+    position:fixed;
+    width:100%;
+    z-index: 9999;
+}
+
+
+header .header_container {
+    display: flex;
+    padding: 30px 0px;
+}
+
+header .header_container .logo { 
+    flex-grow: 1;
+    font-family: 'Bungee Inline', cursive;
+    font-size: 30px;
+}
+header .header_container .logo a{ 
+    text-decoration: none;
+    color:#ffffff;
+}
+
+header ul {
+    margin: 0px;
+}
+
+header ul li {
+    display: inline;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+header ul li a {
+    color:#ffffff;
+    text-decoration: none;
+}
+header ul li a:hover {
+    text-decoration: none !important;
+}
+header ul li span {
+    cursor: pointer;
+}
+
+footer {
+    background: #191919;
+    color: #ffffff;
+}
+
+footer .logo {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 30px;
+    line-height: 121px;
+    text-align: center;
+}
+
+
+/*================================
+                SLIDER
+==================================*/
+
+.slider_bck {
+    height: 850px;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+}
+
+
+.content {
+    font-size: 80px;
+    color: #ffffff;
+    position: absolute;
+    bottom: 90px;
+}
+
+.content .item {
+    background: #191919;
+    padding: 10px 50px;
+    margin-bottom: 20px;
+    line-height: 100px;
+}
+
+.home_container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+  
+.home_container .md-card {
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    width: calc(1/3*100% - (1 - 1/3)*10px);
+}
+
+/*================================
+                sign in
+==================================*/
+
+.signin_container {
+    padding-top: 200px;
+    height: 90vh;
+}
+
+.signin_container h1 {
+    text-align: center;
+    color: #797979;
+}
+
+.input_field {
+    margin-bottom: 30px;
+}
+
+.input_field label {
+    display: block;
+    font-size: 17px;
+    font-weight: 300;
+    margin-bottom: 12px;
+}
+
+.input_field input {
+    width: 100%;
+    font-size: 20px;
+    border-radius: 3px;
+    box-shadow: none;
+    border: 1px solid #dbdbdb;
+    background: #f6f6f6;
+    padding: 10px;
+}
+.dashboard_form {
+    width: 560px;
+    margin-bottom: 100px;
+}
+
+.dashboard_form .input_field input{
+    width: 100%;
+    font-size: 20px;
+    border-radius: 3px;
+    box-shadow: none;
+    border: 1px solid #dbdbdb;
+    background: #f6f6f6;
+    padding: 10px;
+}
+
+.dashboard_form .input_field select {
+    width: 100%;
+    font-size: 20px;
+    border: 1px solid #dbdbdb;
+}
+.dashboard_form h1 {
+    color: #434343;
+    text-transform: uppercase;
+    border-bottom: 1px solid #b8b8b8;
+    margin: 20px 0px;
+    line-height: 51px;
+}
+
+button {
+    width: 100%;
+    font-size: 20px;
+    background: #F44336;
+    border: none;
+    padding: 12px;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.signin_container form {
+    width:400px;
+    margin:0 auto;
+    border: 1px solid #d2d2d2;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+/*================================
+           POST
+==================================*/
+
+.post_container {
+    padding-top: 82px;
+}
+
+.post_container .post_header .post_img{
+    width: 100%;
+    height: 500px;
+    background-size: cover !important;
+}
+
+.post_container .post_header h1 {
+    font-size: 43px;
+    line-height: 60px;
+    font-weight: 700;
+    color: #404040;
+}
+
+.post_container  .post_content {
+    font-size: 23px;
+    line-height: 28px;
+    color: #737373;
+    margin: 30px 0px;
+    font-weight: 300;
+}
+.post_container .post_rating {
+    font-size: 30px;
+    padding: 30px 0px;
+    border-top: 5px solid #F44336;
+    color: red;
+    font-weight: 800;
+    background: #252525;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.post_container .post_rating span {
+    color:#ffffff;
+}
+
+
+/*================================
+           DASHBOARD
+==================================*/
+
+.dashboard_container {
+    padding-top: 82px;
+    min-height: 90vh;
+}
+.dashboard_container .admin_nav {
+    border-bottom: 3px solid #6e6e6e;
+    margin-bottom: 20px;
+}
+
+.dashboard_container .admin_nav ul {
+    margin:0;
+    padding:0;
+}
+
+.dashboard_container .admin_nav ul li{
+    display: inline;
+    margin-right: 10px;
+}
+
+.dashboard_container .admin_nav ul li a{
+    font-size: 15px;
+    background: #F44336;
+    color: #ffffff;
+    padding: 5px 10px;
+    display: inline-block;
+    margin: 10px 0px;
+}
+
+.error_label {
+    color:red;
+}
+
+.md-dialog {
+    background: #ffffff;
+    box-sizing: border-box;
+    padding: 20px;
+}    
+
+.md-dialog .md-button {
+    color: #607D8B;
+}
+
+.md-table-cell {
+    max-width: 290px;
+}
+
+.post_succesfull{
+    font-size: 20px;
+    background: #4CAF50;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dashboard_welcome {
+    height: 70vh;
+    font-size: 20px;
+}
+
+.load_more {
+    cursor:pointer;
+    text-align: center;
+    margin: 20px;
+}
+
+.load_more .button_default { 
+    font-size: 21px;
+    line-height: 33px;
+    font-weight: 800;
+    background: #2a2a2a;
+}   
+
+.post_delete{ 
+    color: #F44336;
+    font-weight: 700;  
+}
+
+.not_found_container {
+    padding-top: 82px;
+    min-height: 90vh;
+    padding-top: 240px;
+    text-align: center;
+    font-size: 30px;
+}
