@@ -2,6 +2,15 @@
   <div class="dashboard_form">
     <h1>Add Posts</h1>
     <form @submit.prevent="onSubmit">
+      <div v-if="imageUpload">
+        <img :src="imageUpload" />
+      </div>
+      <div class="input_field">
+        <input
+          @change="processFile($event)"
+          type="file"
+        />
+      </div>
       <div
         class="input_field"
         :class="{ invalid: $v.formData.title.$error}"
@@ -102,6 +111,7 @@ export default {
     return {
       dialog: false,
       formData: {
+        img: "",
         title: "",
         desc: "",
         content: "",
@@ -132,6 +142,13 @@ export default {
       }
 
       return status;
+    },
+    imageUpload() {
+      const imageUrl = this.$store.getters["admin/imageUpload"];
+
+      this.formData.img = imageUrl;
+
+      return imageUrl;
     }
   },
   methods: {
@@ -165,6 +182,11 @@ export default {
       } else {
         alert("Something went wrong");
       }
+    },
+    processFile(event) {
+      const file = event.target.files[0];
+
+      this.$store.dispatch("admin/imageUpload", file);
     }
   }
 };

@@ -6,6 +6,7 @@ import {
     AUTH_FAILED,
     AUTH_USER,
     CLEAR_ADD_POST,
+    IMAGE_UPLOAD,
     LOG_IN,
     REFRESH_LOADING
 } from '../../constants';
@@ -19,6 +20,7 @@ const admin = {
     state: {
         addPost: false,
         authFailed: false,
+        imageUpload: null,
         refresh: null,
         refreshLoading: true,
         token: null
@@ -79,15 +81,39 @@ const admin = {
                 commit(REFRESH_LOADING);
             }
         },
-        addPost({ commit, state }, payload) {
+        addPost({ commit, state }, post) {
             Vue.http
-                .post(`posts.json?auth=${state.token}`, payload)
+                .post(`posts.json?auth=${state.token}`, post)
                 .then(response => response.json())
-                .then(res => {
+                .then(() => {
+                    // Commiting the add post and then clearing the post data
                     commit(ADD_POST);
                     setTimeout(() => {
                         commit(CLEAR_ADD_POST);
                     }, 3000);
+                });
+        },
+        imageUpload({ commit }, file) {
+            // Getting the cloudinary url from cloudinary for uploading images
+            const CLOUDINARY_URL =
+                'https://api.cloudinary.com/v1_1/marcuscloud/image/upload';
+            // Getting the preset needed for uploading images
+            const CLOUDINARY_PRESET = 'hplstavr';
+
+            let formData = new FormData();
+
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_PRESET);
+
+            Vue.http
+                .post(CLOUDINARY_URL, formData, {
+                    headers: {
+                        'Content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then(response => response.json())
+                .then(res => {
+                    commit(IMAGE_UPLOAD, res);
                 });
         }
     },
@@ -125,6 +151,9 @@ const admin = {
         },
         clearAddPost(state) {
             state.addPost = false;
+        },
+        imageUpload(state, image) {
+            state.imageUpload = image.secure_url;
         }
     },
     getters: {
@@ -137,6 +166,9 @@ const admin = {
         },
         addPostStatus(state) {
             return state.addPost;
+        },
+        imageUpload(state) {
+            return state.imageUpload;
         }
     }
 };
