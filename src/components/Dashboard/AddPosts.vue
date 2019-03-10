@@ -75,6 +75,14 @@
       </div>
       <button type="submit">Add Post</button>
     </form>
+
+    <md-dialog :md-active="dialog">
+      <p>Your most has no content, are you sure you want to post this?</p>
+      <md-dialog-actions>
+        <md-button @click="dialogOnCancel">Oops, cancel save</md-button>
+        <md-button @click="dialogOnConfirm">Yes, I am sure</md-button>
+      </md-dialog-actions>
+    </md-dialog>
   </div>
 </template>
 
@@ -85,6 +93,7 @@ export default {
   name: "AddPosts",
   data() {
     return {
+      dialog: false,
       formData: {
         title: "",
         desc: "",
@@ -108,8 +117,27 @@ export default {
     }
   },
   methods: {
+    async addPost() {
+      console.log("ADDING POST");
+    },
+    dialogOnCancel() {
+      this.dialog = false;
+    },
+    dialogOnConfirm() {
+      this.dialog = false;
+      this.addPost();
+    },
     onSubmit() {
-      console.log("Submitting");
+      if (!this.$v.$invalid) {
+        if (!this.formData.content) {
+          // If the WYSIWYG is empty then we will show a dialog
+          this.dialog = true;
+        } else {
+          this.addPost();
+        }
+      } else {
+        alert("Something went wrong");
+      }
     }
   }
 };
