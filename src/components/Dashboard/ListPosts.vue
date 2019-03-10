@@ -24,25 +24,49 @@
         </md-table-cell>
       </md-table-row>
     </md-table>
+    <md-dialog-confirm
+      :md-active.sync="confirmDelete"
+      md-title="Confirm Delete"
+      md-content="Are you sure you want to delete this post? ( There is no turning back )"
+      md-confirm-text="Yes, Delete this post"
+      md-cancel-text="NO, DO NOT DELETE IT!"
+      @md-cancel="onCancel"
+      @md-confirm="onConfirm"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: "ListPosts",
+  data() {
+    return {
+      confirmDelete: false,
+      deleteId: ""
+    };
+  },
   created() {
     this.$store.dispatch("admin/getAdminPosts");
   },
   computed: {
     posts() {
       const posts = this.$store.getters["admin/getAdminPosts"];
-      console.log("Posts: ", posts);
       return posts;
     }
   },
   methods: {
     deleteHandler(id) {
-      console.log("DELETING: ", id);
+      this.confirmDelete = true;
+      this.deleteId = id;
+    },
+    onCancel() {
+      this.confirmDelete = false;
+      this.deleteId = "";
+    },
+    onConfirm() {
+      this.$store.dispatch("admin/deletePost", this.deleteId);
+      this.confirmDelete = false;
+      this.deleteId = "";
     }
   }
 };

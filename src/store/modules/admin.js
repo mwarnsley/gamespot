@@ -12,6 +12,7 @@ import {
     REFRESH_LOADING
 } from '../../constants';
 
+import filter from 'lodash/filter';
 import { firebaseLooper } from '../../helpers';
 
 const firebaseAuth =
@@ -127,8 +128,20 @@ const admin = {
                 .then(res => {
                     // Formatting the data to fit the state
                     const posts = firebaseLooper(res);
+                    // Commiting getting the admin post and reversing the order for the newest to be first
                     commit(GET_ADMIN_POSTS, posts.reverse());
                 });
+        },
+        deletePost({ commit, state }, id) {
+            Vue.http.delete(`posts/${id}.json?auth=${state.token}`).then(() => {
+                // Getting all of the admin post
+                const newPost = filter(
+                    state.adminPosts,
+                    post => post.id !== id
+                );
+                // Updating the state with the new post
+                commit(GET_ADMIN_POSTS, newPost);
+            });
         }
     },
     mutations: {
