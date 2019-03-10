@@ -14,14 +14,14 @@
           <img :src="require('../../assets/images/login.png')" />
         </router-link>
       </div>
-    </div>
-    <div v-if="isAuth">
-      <ul>
-        <li>
-          <router-link to="/dashboard">Dashboard</router-link>
-        </li>
-        <li @click="logoutUser">Logout</li>
-      </ul>
+      <div v-if="isAuth">
+        <ul>
+          <li>
+            <router-link to="/dashboard">Dashboard</router-link>
+          </li>
+          <li @click="logoutUser">Logout</li>
+        </ul>
+      </div>
     </div>
   </header>
 </template>

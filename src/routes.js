@@ -5,6 +5,9 @@ import store from './store/store';
 import Home from './components/Home/Home.vue';
 import Login from './components/Authentication/Login.vue';
 import Dashboard from './components/Dashboard/Dashboard.vue';
+import MainDashboard from './components/Dashboard/Main.vue';
+import AddPosts from './components/Dashboard/AddPosts.vue';
+import ListPosts from './components/Dashboard/ListPosts.vue';
 
 Vue.use(VueRouter);
 
@@ -32,7 +35,23 @@ const routes = [
     {
         path: '/dashboard',
         component: Dashboard,
-        name: 'dashboard',
+        children: [
+            {
+                path: '/',
+                component: MainDashboard,
+                name: 'maindashboard'
+            },
+            {
+                path: 'add_posts',
+                component: AddPosts,
+                name: 'addposts'
+            },
+            {
+                path: 'posts_list',
+                component: ListPosts,
+                name: 'listposts'
+            }
+        ],
         ...authGuard
     }
 ];

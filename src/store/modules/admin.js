@@ -6,7 +6,6 @@ import { AUTH_FAILED, AUTH_USER, LOG_IN } from '../../constants';
 const firebaseAuth =
     'https://www.googleapis.com/identitytoolkit/v3/relyingparty';
 const firebaseKey = 'AIzaSyAQZC9GL_Oqr5LpzCvuOpoyXJWQdPelXEw';
-const projectId = 'gamespot-25af3';
 
 const admin = {
     namespaced: true,
@@ -34,6 +33,32 @@ const admin = {
                 .catch(() => {
                     commit(AUTH_FAILED);
                 });
+        },
+        refreshToken({ commit }) {
+            const refreshToken = localStorage.getItem('refresh');
+            if (refreshToken) {
+                Vue.http
+                    .post(
+                        `https://securetoken.googleapis.com/v1/token?key=${firebaseKey}`,
+                        {
+                            grant_type: 'refresh_token',
+                            refresh_token: refreshToken
+                        }
+                    )
+                    .then(response => response.json())
+                    .then(authData => {
+                        commit(AUTH_USER, {
+                            idToken: authData.id_token,
+                            refreshToken: authData.refresh_token,
+                            type: 'refresh'
+                        });
+                        localStorage.setItem('token', authData.id_token);
+                        localStorage.setItem('refresh', authData.refresh_token);
+                    })
+                    .catch(() => {
+                        console.error('Error');
+                    });
+            }
         }
     },
     mutations: {
