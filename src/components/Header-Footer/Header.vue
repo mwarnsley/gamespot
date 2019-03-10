@@ -2,7 +2,10 @@
   <header>
     <div class="container header_container">
       <div class="logo">
-        <router-link to="/">
+        <router-link
+          exact
+          to="/"
+        >
           Gamespot
         </router-link>
       </div>
@@ -10,14 +13,20 @@
         class="login"
         v-if="!isAuth"
       >
-        <router-link to="/login">
+        <router-link
+          exact
+          to="/login"
+        >
           <img :src="require('../../assets/images/login.png')" />
         </router-link>
       </div>
       <div v-if="isAuth">
         <ul>
           <li>
-            <router-link to="/dashboard">Dashboard</router-link>
+            <router-link
+              exact
+              to="/dashboard"
+            >Dashboard</router-link>
           </li>
           <li @click="logoutUser">Logout</li>
         </ul>

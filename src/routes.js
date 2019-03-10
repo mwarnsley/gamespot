@@ -11,12 +11,41 @@ import ListPosts from './components/Dashboard/ListPosts.vue';
 
 Vue.use(VueRouter);
 
+// This is the authGuard to make sure that the routes are secure
 const authGuard = {
     beforeEnter: (to, from, next) => {
-        if (store.state.admin.token) {
-            next();
+        // If There is a token in the state then we will allow specific authorized routes
+        const redirect = () => {
+            if (store.state.admin.token) {
+                if (to.path === '/login') {
+                    next('/dashboard');
+                } else {
+                    next();
+                }
+            } else {
+                if (to.path === '/login') {
+                    next();
+                } else {
+                    next('/');
+                }
+            }
+        };
+
+        /**
+         * If the state is refreshing for the loading
+         * If it is not then we will go ahead and run the redirect to login to the app
+         * Since we are using modules we need to do the watching this way
+         */
+        if (store.state.admin.refreshLoading) {
+            store.watch(
+                (_, getters) => getters['admin/refresLoading'],
+                () => {
+                    // We are only going to run this after there is a change
+                    redirect();
+                }
+            );
         } else {
-            next('/');
+            redirect();
         }
     }
 };
@@ -25,12 +54,13 @@ const routes = [
     {
         path: '/',
         component: Home,
-        name: 'home'
+        name: 'Home'
     },
     {
         path: '/login',
         component: Login,
-        name: 'login'
+        name: 'Login'
+        // ...authGuard
     },
     {
         path: '/dashboard',
@@ -39,17 +69,17 @@ const routes = [
             {
                 path: '/',
                 component: MainDashboard,
-                name: 'maindashboard'
+                name: 'MainDashboard'
             },
             {
                 path: 'add_posts',
                 component: AddPosts,
-                name: 'addposts'
+                name: 'AddPosts'
             },
             {
                 path: 'posts_list',
                 component: ListPosts,
-                name: 'listposts'
+                name: 'ListPosts'
             }
         ],
         ...authGuard

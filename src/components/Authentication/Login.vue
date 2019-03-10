@@ -96,6 +96,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      // If the validation comes back correct then we are going to log in the user to the app
       if (!this.$v.$invalid) {
         this.$store.dispatch("admin/login", this.formData);
       } else {
