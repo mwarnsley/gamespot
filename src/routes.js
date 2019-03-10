@@ -38,7 +38,7 @@ const authGuard = {
          */
         if (store.state.admin.refreshLoading) {
             store.watch(
-                (_, getters) => getters['admin/refresLoading'],
+                (_, getters) => getters['admin/refreshLoading'],
                 () => {
                     // We are only going to run this after there is a change
                     redirect();
@@ -59,8 +59,8 @@ const routes = [
     {
         path: '/login',
         component: Login,
-        name: 'Login'
-        // ...authGuard
+        name: 'Login',
+        ...authGuard
     },
     {
         path: '/dashboard',
