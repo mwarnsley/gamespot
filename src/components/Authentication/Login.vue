@@ -70,7 +70,7 @@ export default {
       error: false,
       formData: {
         email: "marcus@gmail.com",
-        password: "marcu1234"
+        password: "marcus1234"
       }
     };
   },

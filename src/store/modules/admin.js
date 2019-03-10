@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import router from '../../routes';
 
 import { AUTH_FAILED, AUTH_USER, LOG_IN } from '../../constants';
 
@@ -39,6 +40,10 @@ const admin = {
         authUser(state, authData) {
             state.token = authData.idToken;
             state.refresh = authData.refreshToken;
+
+            if (authData.type === LOG_IN) {
+                router.push('/dashboard');
+            }
         },
         authFailed(state, type) {
             if (type === 'reset') {
@@ -46,9 +51,23 @@ const admin = {
             } else {
                 state.authFailed = true;
             }
+        },
+        logoutUser(state) {
+            state.refresh = null;
+            state.token = null;
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('refresh');
+
+            router.push('/');
         }
     },
-    getters: {}
+    getters: {
+        isAuth(state) {
+            if (state.token) return true;
+            return false;
+        }
+    }
 };
 
 export default admin;
