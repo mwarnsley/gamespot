@@ -3,7 +3,7 @@
     <carousel
       :mouse-drag="true"
       :per-page="1"
-      paginationEnabled="false"
+      :paginationEnabled="false"
     >
       <slide
         :key="`featured_slide${index}`"
@@ -16,7 +16,13 @@
           <div class="gradient">
             <div class="container">
               <div class="content">
-
+                <app-button
+                  :addClass="['hello', 'there']"
+                  linkTo="#"
+                  type="link"
+                >
+                  See review
+                </app-button>
                 <div class="item">
                   {{ slide.title }}
                 </div>
