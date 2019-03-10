@@ -229,7 +229,9 @@ button {
 .post_container .post_header .post_img {
     width: 100%;
     height: 500px;
-    background-size: cover !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
 }
 
 .post_container .post_header h1 {

@@ -6,10 +6,13 @@ import {
     AUTH_FAILED,
     AUTH_USER,
     CLEAR_ADD_POST,
+    GET_ADMIN_POSTS,
     IMAGE_UPLOAD,
     LOG_IN,
     REFRESH_LOADING
 } from '../../constants';
+
+import { firebaseLooper } from '../../helpers';
 
 const firebaseAuth =
     'https://www.googleapis.com/identitytoolkit/v3/relyingparty';
@@ -18,6 +21,7 @@ const firebaseKey = 'AIzaSyAQZC9GL_Oqr5LpzCvuOpoyXJWQdPelXEw';
 const admin = {
     namespaced: true,
     state: {
+        adminPosts: [],
         addPost: false,
         authFailed: false,
         imageUpload: null,
@@ -115,6 +119,16 @@ const admin = {
                 .then(res => {
                     commit(IMAGE_UPLOAD, res);
                 });
+        },
+        getAdminPosts({ commit }) {
+            Vue.http
+                .get('posts.json')
+                .then(response => response.json())
+                .then(res => {
+                    // Formatting the data to fit the state
+                    const posts = firebaseLooper(res);
+                    commit(GET_ADMIN_POSTS, posts.reverse());
+                });
         }
     },
     mutations: {
@@ -154,6 +168,12 @@ const admin = {
         },
         imageUpload(state, image) {
             state.imageUpload = image.secure_url;
+        },
+        clearImageUpload(state) {
+            state.imageUpload = null;
+        },
+        getAdminPosts(state, posts) {
+            state.adminPosts = posts;
         }
     },
     getters: {
@@ -169,6 +189,9 @@ const admin = {
         },
         imageUpload(state) {
             return state.imageUpload;
+        },
+        getAdminPosts(state) {
+            return state.adminPosts;
         }
     }
 };

@@ -8,6 +8,7 @@
       <div class="input_field">
         <input
           @change="processFile($event)"
+          ref="addPostImageInput"
           type="file"
         />
       </div>
@@ -133,12 +134,16 @@ export default {
       }
     }
   },
+  destroyed() {
+    this.$store.commit("admin/clearImageUpload");
+  },
   computed: {
     addPostStatus() {
       const status = this.$store.getters["admin/addPostStatus"];
 
       if (status) {
         this.clearPost();
+        this.$store.commit("admin/clearImageUpload");
       }
 
       return status;
@@ -157,6 +162,7 @@ export default {
     },
     clearPost() {
       this.$v.$reset();
+      this.$refs.addPostImageInput.value = "";
       this.formData = {
         title: "",
         desc: "",

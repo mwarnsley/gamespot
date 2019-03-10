@@ -1,14 +1,16 @@
 <template>
-  <div v-if="type === 'link'">
-    <router-link
-      :class="['button_default', ...addClass]"
-      :to="linkTo"
-      :style="overrideStyles"
-    >
-      <slot />
-    </router-link>
-
+  <div>
+    <div v-if="type === 'link'">
+      <router-link
+        :class="['button_default', ...addClass]"
+        :to="linkTo"
+        :style="overrideStyles"
+      >
+        <slot />
+      </router-link>
+    </div>
     <div
+      @click="action"
       :class="['button_default', ...addClass]"
       :style="overrideStyles"
       v-if="type === 'btn'"

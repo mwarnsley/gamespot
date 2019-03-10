@@ -5,3 +5,6 @@ export const REFRESH_LOADING = 'refreshLoading';
 export const ADD_POST = 'addPost';
 export const CLEAR_ADD_POST = 'clearAddPost';
 export const IMAGE_UPLOAD = 'imageUpload';
+export const GET_ALL_POSTS = 'getAllPosts';
+export const GET_POST = 'getPost';
+export const GET_ADMIN_POSTS = 'getAdminPosts';
