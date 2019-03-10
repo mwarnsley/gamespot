@@ -2,8 +2,10 @@ import Vue from 'vue';
 import router from '../../routes';
 
 import {
+    ADD_POST,
     AUTH_FAILED,
     AUTH_USER,
+    CLEAR_ADD_POST,
     LOG_IN,
     REFRESH_LOADING
 } from '../../constants';
@@ -15,6 +17,7 @@ const firebaseKey = 'AIzaSyAQZC9GL_Oqr5LpzCvuOpoyXJWQdPelXEw';
 const admin = {
     namespaced: true,
     state: {
+        addPost: false,
         authFailed: false,
         refresh: null,
         refreshLoading: true,
@@ -75,6 +78,17 @@ const admin = {
             } else {
                 commit(REFRESH_LOADING);
             }
+        },
+        addPost({ commit, state }, payload) {
+            Vue.http
+                .post(`posts.json?auth=${state.token}`, payload)
+                .then(response => response.json())
+                .then(res => {
+                    commit(ADD_POST);
+                    setTimeout(() => {
+                        commit(CLEAR_ADD_POST);
+                    }, 3000);
+                });
         }
     },
     mutations: {
@@ -105,6 +119,12 @@ const admin = {
         },
         refreshLoading(state) {
             state.refreshLoading = false;
+        },
+        addPost(state) {
+            state.addPost = true;
+        },
+        clearAddPost(state) {
+            state.addPost = false;
         }
     },
     getters: {
@@ -114,6 +134,9 @@ const admin = {
         },
         refreshLoading(state) {
             return state.refreshLoading;
+        },
+        addPostStatus(state) {
+            return state.addPost;
         }
     }
 };

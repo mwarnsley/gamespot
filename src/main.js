@@ -24,7 +24,7 @@ Vue.use(VueResource);
 Vue.use(vuelidate);
 Vue.use(wysiwyg, {});
 
-Vue.http.options.root = '';
+Vue.http.options.root = 'https://gamespot-25af3.firebaseio.com/';
 Vue.config.productionTip = false;
 
 new Vue({

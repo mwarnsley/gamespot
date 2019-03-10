@@ -76,6 +76,13 @@
       <button type="submit">Add Post</button>
     </form>
 
+    <div
+      class="post_succesfull"
+      v-if="addPostStatus"
+    >
+      Your post was added succesfully
+    </div>
+
     <md-dialog :md-active="dialog">
       <p>Your most has no content, are you sure you want to post this?</p>
       <md-dialog-actions>
@@ -116,9 +123,29 @@ export default {
       }
     }
   },
+  computed: {
+    addPostStatus() {
+      const status = this.$store.getters["admin/addPostStatus"];
+
+      if (status) {
+        this.clearPost();
+      }
+
+      return status;
+    }
+  },
   methods: {
     async addPost() {
-      console.log("ADDING POST");
+      this.$store.dispatch("admin/addPost", this.formData);
+    },
+    clearPost() {
+      this.$v.$reset();
+      this.formData = {
+        title: "",
+        desc: "",
+        content: "",
+        rating: ""
+      };
     },
     dialogOnCancel() {
       this.dialog = false;
